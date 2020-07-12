@@ -1,0 +1,40 @@
+<div class="container" style="margin-top: 70px;">
+    <div class="container" style="border-style: ridge;">
+        <div class="input-group mb-3" style="width: 500px; margin-top: 20px;">
+            <input type="text" #stationCode class="form-control" placeholder="Station Code" aria-label="Station Code" aria-describedby="basic-addon1">
+            <button type="button" mdbBtn color="primary" (click)="getTrainList(stationCode.value)" mdbWavesEffect style="margin-left: 15px;">Search</button>
+        </div>
+    </div>
+    <div class="container" style="border-style: ridge;">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Train Number</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Arrival</th>
+                    <th>Depature</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let train of trainList; let i = index">
+
+                    <td>{{i + 1}}</td>
+                    <td>{{ train.trainName }}</td>
+                    <td> {{ train.trainNumber }}</td>
+                    <td> {{ train.source }}</td>
+                    <td> {{ train.destination }}</td>
+                    <td> {{ train.destination }}</td>
+                    <td> {{ train.destination }}</td>
+                    <td> {{ train.type }}</td>
+                    <td>
+                        <button class="btn btn-primary" (click)="getLiveStatus(train.trainNumber)"> Show live status</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
