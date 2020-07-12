@@ -1,9 +1,22 @@
-<p>live-train-location works!</p>
-<div id="messages">
-    <button class="btn btn-primary">Send Test Message</button>
-    <h2>Received messages</h2>
-    <ol>
-        <!-- we will use Angular binding to populate list of messages -->
-        <li class="message">message</li>
-    </ol>
+<div class="container" style="margin-top: 70px;">
+    <div class="container" style="border-style: ridge;">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>TrainName</th>
+                    <th>Latitute</th>
+                    <th>Longitude</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trainDetail of receivedMessages; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{trainDetail.trainName}}</td>
+                    <td>{{trainDetail.latitude}}</td>
+                    <td>{{trainDetail.longitude}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

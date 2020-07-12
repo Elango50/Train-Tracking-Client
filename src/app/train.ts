@@ -6,4 +6,5 @@ export class Train {
     destination: string
     arrival: string
     depature:string
+    trainId:any
 }

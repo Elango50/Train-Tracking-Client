@@ -1,44 +1,58 @@
 import { Component, OnInit } from '@angular/core';
-import { RxStompService } from '@stomp/ng2-stompjs';
 import { Subscription } from 'rxjs';
-import { socketConfig } from '../socket.config';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import { ActivatedRoute } from '@angular/router';
+import { TrainLocation } from './TrainLocation';
 
 @Component({
-  selector: 'app-live-train-location',
-  templateUrl: './live-train-location.component.html',
-  styleUrls: ['./live-train-location.component.scss']
+    selector: 'app-live-train-location',
+    templateUrl: './live-train-location.component.html',
+    styleUrls: ['./live-train-location.component.scss']
 })
 export class LiveTrainLocationComponent implements OnInit {
 
-  constructor(private rxStompService: RxStompService) { }
+    public train;
+    constructor(private route: ActivatedRoute) { 
+        this.train = this.route.snapshot.queryParams.id;
 
-  public receivedMessages: string[] = [];
-  private topicSubscription: Subscription;
+    }
 
-  ngOnInit(): void {
-      debugger
-     this.rxStompService.configure(socketConfig);
-     this.rxStompService.activate();
-  }
+    public receivedMessages: TrainLocation[] = [];
+    private topicSubscription: Subscription;
 
-  disconnect() {
-    this.topicSubscription.unsubscribe();
-  }
+    ws: any;
+    name: string;
+    disabled: boolean;
 
-  onSendMessage() {
-    const message = `Message generated at ${new Date}`;
-    this.rxStompService.publish({
-        destination: '/topic/demo', 
-        body: message
-    });
-  }
+    ngOnInit(): void {
+        this.connect()
+    }
 
-  connect() {
-    this.topicSubscription = this.rxStompService.watch('/topic/posts/12356/get').subscribe((message: any) => {
-    debugger
-        this.receivedMessages.push(message.body);
-    });
-  }
+    connect() {
+        //connect to stomp where stomp endpoint is exposed
+        var socket = new SockJS('http://localhost:8080/live');
+        this.ws = Stomp.over(socket);
+        let that = this;
+        this.ws.connect({}, function (frame) {
+            debugger
+            that.ws.subscribe("/errors", function (message) {
+                alert("Error " + message.body);
+            });
+            that.ws.subscribe("/topic/get/" + that.train, function (message) {
+                console.log(message)
+                that.receivedMessages.push(JSON.parse(message.body));
+            });
+            that.disabled = true;
+        }, function (error) {
+            alert("STOMP error " + error);
+        });
+    }
 
-
+    disconnect() {
+        if (this.ws !== null) {
+            this.ws.disconnect();
+        }
+        console.log("Disconnected");
+    }
 }

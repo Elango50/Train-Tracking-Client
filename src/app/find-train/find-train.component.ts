@@ -24,8 +24,8 @@ export class FindTrainComponent implements OnInit {
         }); 
   }
 
-  public getLiveStatus(trainNumber) {
-    this.route.navigateByUrl('/live-train');
+  public getLiveStatus(trainId) {
+    this.route.navigateByUrl('/live-train?id=' + trainId);
     //this.selectedContact = contact;
   }
 
