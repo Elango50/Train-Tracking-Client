@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainApiServiceService } from '../train-api-service.service';
-import { Train } from '../train';
 import { Router } from '@angular/router';
+import { TrainScheduleDetail } from '../train.schedule .detail';
 
 @Component({
   selector: 'app-find-train',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class FindTrainComponent implements OnInit {
 
-  public trainList : Train[];
+  public trainList : TrainScheduleDetail[];
   
   constructor(public apiService : TrainApiServiceService, private route: Router) { }
 

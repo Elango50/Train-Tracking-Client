@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/internal/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Train } from './train';
+import { TrainScheduleDetail } from './train.schedule .detail';
 
 const endpoint = 'http://localhost:4200/api/train';
 
@@ -14,8 +14,7 @@ export class TrainApiServiceService {
   constructor(private http: HttpClient) { }
 
   getTrains(stationCode : string): Observable<any> {
-      debugger
-    return this.http.get<Train>(endpoint + '/findTrain/' + stationCode).pipe(
+    return this.http.get<TrainScheduleDetail>(endpoint + '/findTrain/' + stationCode).pipe(
       catchError(this.handleError)
     );
   }

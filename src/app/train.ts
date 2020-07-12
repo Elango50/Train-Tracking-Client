@@ -1,4 +1,4 @@
-export class Train {
+export class TrainDetail {
     trainName: string
     trainNumber: string
     type:string

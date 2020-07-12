@@ -23,15 +23,15 @@
                 <tr *ngFor="let train of trainList; let i = index">
 
                     <td>{{i + 1}}</td>
-                    <td>{{ train.trainName }}</td>
-                    <td> {{ train.trainNumber }}</td>
-                    <td> {{ train.source }}</td>
-                    <td> {{ train.destination }}</td>
-                    <td> {{ train.destination }}</td>
-                    <td> {{ train.destination }}</td>
-                    <td> {{ train.type }}</td>
+                    <td>{{ train.trainDetail.trainName }}</td>
+                    <td> {{ train.trainDetail.trainNumber }}</td>
+                    <td> {{ train.trainDetail.source }}</td>
+                    <td> {{ train.trainDetail.destination }}</td>
+                    <td> {{ train.trainSchedule.arrival }}</td>
+                    <td> {{ train.trainSchedule.depature }}</td>
+                    <td> {{ train.trainDetail.type }}</td>
                     <td>
-                        <button class="btn btn-primary" (click)="getLiveStatus(train.trainId)"> Show live status</button>
+                        <button class="btn btn-primary" (click)="getLiveStatus(train.trainDetail.trainId)"> Show live status</button>
                     </td>
                 </tr>
             </tbody>
